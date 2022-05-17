@@ -6,56 +6,81 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
+    <script src="https://unpkg.com/phosphor-icons"></script>
     <title>To Do List</title>
 </head>
 
 <body>
     <header>
-        <% if (task === null) { %>
-        <form action="/create" method="post">
-            <label for="task">
-                <input type="text" name="task" id="task" placeholder="Insira uma tarefa">
-                <button id="addButton" type="submit">Adicionar</button>
-            </label>
-        </form>
-        <% } else { %>
-        <form action="/updateTask/<%= task._id %>" method="post">
-            <label for="task">
-                <input value="<%= task.task %>" type="text" name="task" id="task">
-                <button id="addButton" type="submit">Atualizar</button>
-            </label>
-        </form>
-        <% } %>
+        <% if (task===null) { %>
+            <h1>TO DO LIST</h1>
+            <form action="/create" method="post">
+                <label for="task">
+                    <input type="text" name="task" id="task" placeholder="Insira uma tarefa">
+                    <button id="addButton" type="submit">Adicionar</button>
+                </label>
+            </form>
+            <% } else { %>
+                <h1>EDITAR TAREFA</h1>
+                <form action="/updateTask/<%= task._id %>" method="post">
+                    <label for="task">
+                        <input value="<%= task.task %>" type="text" name="task" id="task">
+
+                        <button id="btnUpdate" type="submit">
+                            Atualizar
+                        </button>
+                    </label>
+                </form>
+                <% } %>
     </header>
 
     <section id="tasks">
         <ul>
             <% tasksList.forEach((task, index)=> { %>
-                <li id=<% index %>>
-                    <%= task.task %> | <%= task.date.toLocaleDateString('pt-br') %>
-                    <a href="/getById/<%= task._id %>/update">Editar</a>
-                    <a href="/getById/<%= task._id %>/delete">Apagar</a>
+                <li>
+                    <div id="infos">
+                        <a href="/">
+                            <%= task.task %>
+                        </a>
+                        <span>Criado em <%= task.date.toLocaleDateString('pt-br') %> </span>
+                    </div>
+
+                    <div class="buttons">
+                        <a class="edit" href="/getById/<%= task._id %>/update"><i class="ph-note-pencil"></i></a>
+                        <a class="trash" href="/getById/<%= task._id %>/delete"><i class="ph-trash"></i></a>
+                    </div>
                 </li>
-            <% }) %>
+                <% }) %>
         </ul>
     </section>
 
-    <% if (taskDelete != null) { %>
-    <section id="modal">
-        <div class="card">
-            <a href="/">x</a>
+    <% if (taskDelete !=null) { %>
+        <section id="modal">
+            <div id="card">
+                <div id="head-card">
+                    <h2>Confirmação</h2>
+                    <a id="close" href="/">
+                        <i class="ph-x"></i>
+                    </a>
+                </div>
 
-            <h2>Confirmação</h2>
-            <hr>
-            <p>Deseja realmente apagar a tarefa: <%= taskDelete.task %>?</p>
-            <a href="/">Cancelar</a>
-            <a href="/deleteTask/<%= taskDelete._id %>">
-                Confirmar
-            </a>
-        </div>
-    </section>
-    <% } %>
+                <hr>
 
-    <script src="/script.js"></script>
+                <div id="content-card">
+                    <p>Deseja realmente apagar a tarefa: <%= taskDelete.task %>?</p>
+                </div>
+
+                <div id="buttons-card">
+                    <a class="edit btn-cancel" href="/">Cancelar</a>
+                    <a class="trash btn-confirm" href="/deleteTask/<%= taskDelete._id %>">
+                        Confirmar
+                    </a>
+                </div>
+            </div>
+        </section>
+        <% } %>
+
+            <script src="/script.js"></script>
 </body>
+
 </html>
