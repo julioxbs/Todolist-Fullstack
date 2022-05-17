@@ -190,3 +190,25 @@ a.btn-cancel {
     color: #000;
     font-weight: bold;
 }
+
+/* DISPLAY ALERT */
+.message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    transition: all 0.3s ease-in-out;
+
+    position: fixed;
+    top: 3rem;
+    width: 50%;
+    transform: translateX(50%);
+}
+
+section.message-success {
+    background-color: #00b300;
+}
+
+section.message-danger {
+    background-color: #cc0000;
+}
