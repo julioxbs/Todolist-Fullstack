@@ -1,0 +1,23 @@
+<section id="modal">
+    <div id="card">
+        <div id="head-card">
+            <h2>Confirmação</h2>
+            <a id="close" href="/">
+                <i class="ph-x"></i>
+            </a>
+        </div>
+
+        <hr>
+
+        <div id="content-card">
+            <p>Deseja realmente apagar a tarefa: <%= taskDelete.task %>?</p>
+        </div>
+
+        <div id="buttons-card">
+            <a class="edit btn-cancel" href="/">Cancelar</a>
+            <a class="trash btn-confirm" href="/deleteTask/<%= taskDelete._id %>">
+                Confirmar
+            </a>
+        </div>
+    </div>
+</section>

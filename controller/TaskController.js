@@ -9,7 +9,6 @@ const getAllTasks = async (req, res) => {
       type = ""
     }, 2000);
     const tasksList = await Task.find();
-    console.log(tasksList);
     return res.render("index", {
       tasksList, 
       task: null, 
